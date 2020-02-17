@@ -125,7 +125,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                             navigationMapRoute = new NavigationMapRoute(null, mapView,mapboxMap);
                         }
 
+
                         navigationMapRoute.addRoute(curentRoute);
+                        Toast.makeText(getApplicationContext(), ""+curentRoute.distance(),Toast.LENGTH_LONG).show();
 
                     }
 
