@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Mapbox Routing</string>
+    <string name="token" translatable="false">sk.eyJ1Ijoia2hheXJ1bDAxIiwiYSI6ImNrNnFtZGR3ejBqNXYza245enVrdmMyMjgifQ._9DfKJccJSjdYKgj_CsaZg</string>
+    <string name="navigation_guidance_day" translatable="false">mapbox://styles/mapbox/streets-v11</string>
+</resources>
