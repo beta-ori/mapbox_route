@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
 import com.mapbox.android.core.permissions.PermissionsListener;
@@ -48,6 +50,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     DirectionsRoute curentRoute;
     NavigationMapRoute navigationMapRoute;
 
+    private static final String[] name =  new String[]{
+            "abc", "def", "abd", "deh"
+    };
+
+    AutoCompleteTextView autoCompleteTextView;
+    ArrayAdapter<String> arrayAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +65,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
+
+        autoCompleteTextView = findViewById(R.id.auto);
+        arrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, name);
+        autoCompleteTextView.setAdapter(arrayAdapter);
     }
 
     @Override
@@ -78,20 +91,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public boolean onMapClick(@NonNull LatLng point) {
-        mapboxMap.addMarker(new MarkerOptions().position(point));
+
         Log.d("ok",""+point.getLatitude());
         Point destinationPoint = Point.fromLngLat(point.getLongitude(), point.getLatitude());
         Point originPoint = Point.fromLngLat(locationComponent.getLastKnownLocation().getLongitude(),
                 locationComponent.getLastKnownLocation().getLatitude());
-
-        GeoJsonSource source = mapboxMap.getStyle().getSourceAs("destination-source-id");
-
-        if(source != null)
-        {
-            source.setGeoJson(Feature.fromGeometry(destinationPoint));
-        }
-
-        Log.d("long",""+point.getLatitude());
 
         getRoute(originPoint, destinationPoint);
 
